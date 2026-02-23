@@ -546,6 +546,24 @@ h4 {
     color: #e74c3c;
 }
 
+.pre-reg-consent {
+    font-size: 0.75rem;
+    color: var(--color-text-sub);
+    margin-top: 0.6rem;
+    line-height: 1.5;
+}
+
+.pre-reg-consent a {
+    color: var(--color-text-sub);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.2s;
+}
+
+.pre-reg-consent a:hover {
+    color: var(--color-text-primary);
+}
+
 /* Pre-registered / Pending state: compact badge + caption, left-aligned with hero text */
 .pre-reg-badge-wrap {
     display: flex;
@@ -1866,4 +1884,184 @@ h4 {
     .super-title {
         font-size: clamp(3rem, 15vw, 5rem);
     }
+}
+
+/* ── Celebration Overlay ── */
+.celebration-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.celebration-overlay[hidden] {
+    display: none !important;
+}
+
+.celebration-overlay.is-active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.celebration-overlay.is-fading {
+    opacity: 0;
+}
+
+.confetti-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.celebration-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    transform: scale(0.6) translateY(30px);
+    opacity: 0;
+    transition: transform 0.6s var(--ease-spring), opacity 0.5s ease;
+}
+
+.celebration-overlay.is-active .celebration-content {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+.celebration-emoji {
+    font-size: 5rem;
+    animation: celebBounce 0.6s var(--ease-spring) 0.2s both;
+}
+
+@keyframes celebBounce {
+    0% { transform: scale(0) rotate(-20deg); }
+    60% { transform: scale(1.3) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.celebration-title {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 900;
+    color: #fff;
+    margin: 0.3em 0 0.2em;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+
+.celebration-message {
+    font-size: clamp(0.95rem, 2.5vw, 1.2rem);
+    color: rgba(255,255,255,0.85);
+    line-height: 1.7;
+    font-weight: 500;
+}
+
+/* ──────────────────────────────────────────
+   Legal Pages (Privacy / Terms)
+   ────────────────────────────────────────── */
+.legal-page {
+    cursor: auto;
+    background: var(--color-bg-light);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.legal-page a,
+.legal-page button {
+    cursor: pointer;
+}
+
+.legal-header {
+    padding: 1.5rem 2rem;
+}
+
+.legal-back {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text-sub);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.legal-back:hover {
+    color: var(--color-text-primary);
+}
+
+.legal-main {
+    flex: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 2rem 4rem;
+    width: 100%;
+}
+
+.legal-title {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.3rem;
+}
+
+.legal-updated {
+    font-size: 0.85rem;
+    color: var(--color-text-sub);
+    margin-bottom: 2.5rem;
+}
+
+.legal-body h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 2rem 0 0.6rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.legal-body p {
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: var(--color-text-primary);
+    margin-bottom: 0.8rem;
+}
+
+.legal-body ul {
+    margin: 0.5rem 0 1rem 1.2rem;
+    font-size: 0.95rem;
+    line-height: 1.85;
+}
+
+.legal-body ul li {
+    margin-bottom: 0.3rem;
+}
+
+.legal-body a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.2s;
+}
+
+.legal-body a:hover {
+    opacity: 0.7;
+}
+
+.legal-contact {
+    background: var(--color-bg-alt, #F4F1EA);
+    padding: 1rem 1.2rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+}
+
+.legal-footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+    color: var(--color-text-sub);
 }

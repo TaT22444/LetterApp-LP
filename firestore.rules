@@ -1,10 +1,14 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Pre-registrations: only Cloud Functions (Admin SDK) may read/write.
-    // Clients use callable functions submitPreRegistration and verifyPreRegistration.
-    match /pre-registrations/{docId} {
-      allow read, write: if false;
+    match /pre-registrations/{userId} {
+      allow create: if request.auth != null
+                    && request.auth.uid == userId
+                    && request.resource.data.email is string
+                    && request.resource.data.email.size() > 0
+                    && request.resource.data.verified == true
+                    && request.resource.data.uid == request.auth.uid;
+      allow read, update, delete: if false;
     }
   }
 }

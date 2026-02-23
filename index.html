@@ -77,6 +77,7 @@
                                     required>
                                 <button type="submit" class="btn btn-primary btn-huge">事前登録する</button>
                             </form>
+                            <p class="pre-reg-consent">登録により<a href="/privacy.html" target="_blank">プライバシーポリシー</a>・<a href="/terms.html" target="_blank">利用規約</a>に同意したものとみなします。</p>
                             <p id="pre-reg-status" class="pre-reg-status"></p>
                         </div>
                         <div id="pre-reg-pending" class="pre-reg-badge-wrap" aria-hidden="true" hidden>
@@ -357,14 +358,24 @@
         <div class="footer-inner">
             <div class="footer-huge-logo">CHOCOLETA</div>
             <div class="footer-links">
-                <a href="#">Concept</a>
-                <a href="#">Features</a>
-                <a href="#">Process</a>
-                <a href="#">Privacy</a>
+                <a href="#concept">Concept</a>
+                <a href="#features">Features</a>
+                <a href="#process">Process</a>
+                <a href="/privacy.html">Privacy</a>
+                <a href="/terms.html">Terms</a>
             </div>
             <p class="copyright">&copy; 2026 Chocoleta!? Studio. All rights reserved. Keep it fun!</p>
         </div>
     </footer>
+
+    <div id="celebration-overlay" class="celebration-overlay" hidden>
+        <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+        <div class="celebration-content">
+            <div class="celebration-emoji">🎉</div>
+            <h2 class="celebration-title">ようこそ！</h2>
+            <p class="celebration-message">事前登録ありがとうございます！<br>リリースを楽しみにしていてください。</p>
+        </div>
+    </div>
 
     <script type="module" src="js/main.js"></script>
 </body>

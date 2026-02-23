@@ -328,6 +328,7 @@ h4 {
     position: relative;
     overflow: hidden;
     background: var(--color-bg-light);
+    padding-top: 6vw;
     padding-bottom: 12vw;
     z-index: 5;
 }
@@ -634,7 +635,7 @@ h4 {
     line-height: 0.8;
     color: rgba(255, 255, 255, 0.05);
     position: absolute;
-    top: 5vw;
+    top: 8vw;
     left: -50px;
     white-space: nowrap;
 }
@@ -679,7 +680,7 @@ h4 {
 .use-cases {
     background: var(--color-bg-alt);
     position: relative;
-    padding: 120px 0 160px;
+    padding: calc(120px + 8vw) 0 160px;
     overflow: hidden;
     margin-top: -8vw;
     z-index: 8;

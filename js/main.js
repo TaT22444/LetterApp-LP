@@ -96,25 +96,29 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => {
         if (!ticking) {
             requestAnimationFrame(() => {
-                const scrollY = window.scrollY;
+                const viewportCenter = window.innerHeight / 2;
 
-                // Massive title parallax
+                // Massive title parallax (Relative to viewport center)
                 scrollSpeedElements.forEach(el => {
                     const speed = parseFloat(el.getAttribute('data-scroll-speed'));
-                    el.style.transform = `translateY(${scrollY * speed * 0.1}px)`;
+                    const rect = el.getBoundingClientRect();
+                    const elementCenter = rect.top + rect.height / 2;
+                    // When element is centered in viewport, offset is 0
+                    const offset = (elementCenter - viewportCenter) * speed * 0.1;
+                    el.style.transform = `translateY(${offset}px)`;
                 });
 
-                // Use Cases scatter card parallax
+                // Use Cases scatter card parallax (Relative to viewport center)
                 parallaxCards.forEach(card => {
                     const speed = parseFloat(card.getAttribute('data-parallax-speed'));
                     const rect = card.getBoundingClientRect();
-                    const offset = (rect.top - window.innerHeight / 2) * speed;
-                    card.style.setProperty('--parallax-y', `${offset}px`);
-                    // Only apply parallax transform on desktop
+                    const elementCenter = rect.top + rect.height / 2;
+                    const offset = (elementCenter - viewportCenter) * speed;
+
                     if (window.innerWidth > 768) {
-                        const baseTransform = getComputedStyle(card).getPropertyValue('transform');
-                        // Use a CSS custom property approach to layer parallax on top
-                        card.style.marginTop = `${offset}px`;
+                        card.style.transform = `translateY(${offset}px)`;
+                    } else {
+                        card.style.transform = 'none';
                     }
                 });
 

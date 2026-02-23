@@ -328,6 +328,8 @@ h4 {
     position: relative;
     overflow: hidden;
     background: var(--color-bg-light);
+    padding-bottom: 12vw;
+    z-index: 5;
 }
 
 /* Premium Mesh Gradient & Noise Texture */
@@ -568,7 +570,7 @@ h4 {
 /* Scroll Indicators */
 .scroll-down {
     position: absolute;
-    bottom: 30px;
+    bottom: 10vw;
     left: 5%;
     font-weight: 900;
     font-size: 0.8rem;
@@ -576,6 +578,7 @@ h4 {
     display: flex;
     align-items: center;
     gap: 10px;
+    z-index: 5;
 }
 
 .scroll-arrow {
@@ -609,11 +612,15 @@ h4 {
     }
 }
 
-/* CONCEPT */
+/* CONCEPT — Diagonal Cut */
 .concept {
     background: #000;
     color: #fff;
     z-index: 9;
+    padding: 15vw 5%;
+    margin-top: -8vw;
+    clip-path: polygon(0 8vw, 100% 0, 100% calc(100% - 8vw), 0 100%);
+    position: relative;
 }
 
 .concept-inner {
@@ -627,7 +634,7 @@ h4 {
     line-height: 0.8;
     color: rgba(255, 255, 255, 0.05);
     position: absolute;
-    top: -100px;
+    top: 5vw;
     left: -50px;
     white-space: nowrap;
 }
@@ -674,6 +681,8 @@ h4 {
     position: relative;
     padding: 120px 0 160px;
     overflow: hidden;
+    margin-top: -8vw;
+    z-index: 8;
 }
 
 .uc-bg-text {

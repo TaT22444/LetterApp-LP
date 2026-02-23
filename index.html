@@ -71,7 +71,12 @@
                         ただのメッセージにはない、特別な温もり。<br>手紙を開く瞬間のワクワクを。
                     </p>
                     <div class="hero-actions drop-in" style="animation-delay: 1.0s;">
-                        <a href="#download" class="btn btn-primary btn-huge btn-float-hover">手紙を書いてみる</a>
+                        <form id="pre-reg-form" class="pre-reg-form">
+                            <input type="email" id="pre-reg-email" class="pre-reg-input" placeholder="メールアドレスを入力"
+                                required>
+                            <button type="submit" class="btn btn-primary btn-huge">事前登録する</button>
+                        </form>
+                        <p id="pre-reg-status" class="pre-reg-status"></p>
                     </div>
                 </div>
 
@@ -348,7 +353,7 @@
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
 </body>
 
 </html>

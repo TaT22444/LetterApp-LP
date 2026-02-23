@@ -1,4 +1,6 @@
 // main.js - Premium LP with Scatter Parallax & Fade-up Animations
+import { db } from './firebase-config.js';
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -50,12 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const y = e.clientY - rect.top;
             const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -10;
             const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 10;
-            
+
             // Adjust perspective and scale based on element type if needed
             const isFeature = el.classList.contains('f-visual');
             const scale = 1.05;
             const translateY = isFeature ? -15 : -10; // Lift effect
-            
+
             el.style.transform = `perspective(1000px) translateY(${translateY}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(${scale}, ${scale}, ${scale})`;
         });
         el.addEventListener('mouseleave', () => {
@@ -160,4 +162,40 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // ──────────────────────────────────────────
+    // Pre-registration Form Logic
+    // ──────────────────────────────────────────
+    const preRegForm = document.getElementById('pre-reg-form');
+    const preRegEmail = document.getElementById('pre-reg-email');
+    const preRegStatus = document.getElementById('pre-reg-status');
+
+    if (preRegForm) {
+        preRegForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = preRegEmail.value.trim();
+
+            if (!email) return;
+
+            // Reset status
+            preRegStatus.textContent = "送信中...";
+            preRegStatus.classList.remove('success', 'error');
+            preRegStatus.classList.add('is-visible');
+
+            try {
+                await addDoc(collection(db, "pre-registrations"), {
+                    email: email,
+                    timestamp: serverTimestamp()
+                });
+
+                preRegStatus.textContent = "登録ありがとうございます！リリースをお楽しみに✨";
+                preRegStatus.classList.add('success');
+                preRegForm.reset();
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                preRegStatus.textContent = "エラーが発生しました。時間を置いて再度お試しください。";
+                preRegStatus.classList.add('error');
+            }
+        });
+    }
 });

@@ -486,6 +486,61 @@ h4 {
     margin-bottom: 3rem;
 }
 
+/* Pre-registration Form */
+.pre-reg-form {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    max-width: 500px;
+}
+
+.pre-reg-input {
+    flex: 1;
+    padding: 15px 25px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 40px;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--color-text-primary);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.pre-reg-input:focus {
+    background: rgba(255, 255, 255, 0.7);
+    border-color: var(--color-accent-1);
+    box-shadow: 0 0 20px rgba(255, 139, 167, 0.2);
+}
+
+.pre-reg-status {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 10px;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.pre-reg-status.is-visible {
+    opacity: 1;
+}
+
+.pre-reg-status.success {
+    color: #2ecc71;
+}
+
+.pre-reg-status.error {
+    color: #e74c3c;
+}
+
+@media (max-width: 768px) {
+    .pre-reg-form {
+        flex-direction: column;
+    }
+}
+
 .hero-visual {
     flex: 1;
     position: relative;

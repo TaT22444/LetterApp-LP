@@ -42,6 +42,20 @@ button {
     cursor: none;
 }
 
+@media (hover: none) and (pointer: coarse) {
+
+    body,
+    a,
+    button {
+        cursor: auto !important;
+    }
+
+    .cursor,
+    .cursor-follower {
+        display: none !important;
+    }
+}
+
 ::selection {
     background: var(--color-accent-3);
     color: #000;
@@ -76,6 +90,28 @@ h4 {
     text-transform: uppercase;
     letter-spacing: -0.02em;
     color: var(--color-text-primary);
+}
+
+h1 {
+    font-size: clamp(2.5rem, 8vw, 6rem);
+}
+
+h2 {
+    font-size: clamp(2rem, 6vw, 4rem);
+}
+
+h3 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+h4 {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+}
+
+.section-title {
+    font-size: clamp(2.2rem, 7vw, 4.5rem);
+    margin-bottom: 3rem;
+    line-height: 1.1;
 }
 
 /* Utility Classes */
@@ -1476,27 +1512,172 @@ h4 {
 
 @media (max-width: 768px) {
     .hero {
-        padding-bottom: 60px;
+        padding-top: 100px;
+        padding-bottom: 80px;
+    }
+
+    .hero-inner {
+        padding: 0 5%;
+    }
+
+    .hero-text-block {
+        padding-left: 0;
+        margin-bottom: 40px;
+    }
+
+    .hero-title {
+        font-size: clamp(2.5rem, 10vw, 3.5rem);
+        white-space: normal;
+        word-break: keep-all;
+    }
+
+    .hero-subtitle {
+        margin: 0 auto 2rem;
+        font-size: 1rem;
+    }
+
+    .hero-visual {
+        height: 480px;
+    }
+
+    .mockup-wrapper {
+        transform: translate(-50%, -50%);
+        left: 50%;
+    }
+
+    .glass-phone {
+        width: 200px;
+        height: 420px;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-5deg);
+    }
+
+    .mockup-envelope {
+        width: 220px;
+        height: 124px;
+        left: 50%;
+        top: 45%;
+        transform: translate(-40%, -50%) rotate(8deg);
     }
 
     .scroll-down {
         bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .concept {
-        padding: 80px 5%;
-        margin-top: -40px;
-        clip-path: polygon(0 40px, 100% 0, 100% calc(100% - 40px), 0 100%);
+        padding: 100px 5%;
+        margin-top: -6vw;
+        clip-path: polygon(0 6vw, 100% 0, 100% calc(100% - 6vw), 0 100%);
     }
 
     .massive-title {
-        top: 20px;
+        top: 30px;
         left: -10px;
-        font-size: 5rem;
+        font-size: clamp(4rem, 15vw, 6rem);
+        opacity: 0.03;
+    }
+
+    .tilt-card {
+        padding: 40px 25px;
+        margin-top: 20px;
+    }
+
+    .tilt-card h3 {
+        font-size: 1.8rem;
     }
 
     .use-cases {
-        margin-top: -40px;
+        margin-top: -6vw;
         padding-top: 80px;
+        padding-bottom: 100px;
+    }
+
+    .uc-header {
+        margin-bottom: 40px;
+    }
+
+    .uc-card-inner {
+        padding: 30px 20px;
+    }
+
+    .uc-card-title {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+    }
+
+    .uc-card-text {
+        font-size: 0.95rem;
+    }
+
+    .header {
+        padding: 15px 5%;
+    }
+
+    .header .logo {
+        font-size: 1.5rem;
+    }
+
+    .nav-cta {
+        padding: 8px 15px;
+        font-size: 0.8rem;
+    }
+
+    .features {
+        padding: 80px 0;
+    }
+
+    .feature-showcase {
+        gap: 80px;
+        margin-top: 60px;
+    }
+
+    .f-visual {
+        height: 300px;
+    }
+
+    .f-title {
+        font-size: 1.8rem;
+    }
+
+    .process {
+        padding: 80px 0;
+    }
+
+    .step-card {
+        padding: 40px 20px;
+    }
+
+    .faq {
+        padding-bottom: 120px;
+    }
+
+    .faq-list {
+        margin-top: 60px;
+    }
+
+    .faq-item {
+        padding: 40px 0;
+    }
+
+    .faq-q {
+        font-size: 1.5rem;
+    }
+
+    .faq-a {
+        font-size: 1.1rem;
+    }
+
+    .faq-q::before {
+        display: none;
+    }
+
+    .huge-padding {
+        padding: 120px 5%;
+    }
+
+    .super-title {
+        font-size: clamp(3rem, 15vw, 5rem);
     }
 }

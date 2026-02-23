@@ -1,0 +1,74 @@
+/* variables.css */
+:root {
+    /* Colors */
+    --color-bg-light: #F8F8F7;
+    /* based on theme.simple.bg / theme.simple.envelope */
+    --color-bg-dark: #1C1C1E;
+    /* based on theme.cool */
+
+    --color-text-primary: #1C1C1E;
+    /* theme.cool.text / theme.simple.text */
+    --color-text-secondary: #3A3A3C;
+    --color-text-light: #F2F2F7;
+
+    --color-accent: #5856D6;
+    /* theme.simple.accent */
+    --color-accent-alt: #FF3B30;
+    /* theme.cool.accent */
+
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+
+    --color-border: rgba(0, 0, 0, 0.08);
+
+    /* Fonts */
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-serif: 'Cormorant Garamond', "Noto Serif JP", serif;
+    --font-mono: 'Menlo', 'Courier', monospace;
+    /* Used for code / special letter text */
+
+    /* Spacing */
+    --space-xs: 0.5rem;
+    /* 8px */
+    --space-sm: 1rem;
+    /* 16px */
+    --space-md: 2rem;
+    /* 32px */
+    --space-lg: 4rem;
+    /* 64px */
+    --space-xl: 8rem;
+    /* 128px */
+    --space-xxl: 12rem;
+    /* 192px */
+
+    /* Layout */
+    --container-width: 1200px;
+    --header-height: 80px;
+
+    /* Animation */
+    --transition-fast: 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    --transition-normal: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    --transition-slow: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+    /* Radii */
+    --radius-sm: 4px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-pill: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 24px 48px rgba(0, 0, 0, 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+    /*
+  :root {
+    --color-bg-light: #1C1C1E;
+    --color-text-primary: #F2F2F7;
+    --color-text-secondary: #AEAEB2;
+    --color-border: rgba(255, 255, 255, 0.08);
+  }
+  */
+}

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LetterApp - 想いを、アニメーションで届ける。ワクワクする新しい手紙体験。">
+    <title>LetterApp | デジタル時代の新しい手紙体験</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Noto+Sans+JP:wght@700;900&family=Outfit:wght@400;700;900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="is-loading">
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursor-follower"></div>
+
+    <!-- Background Marquee -->
+    <div class="bg-marquee" aria-hidden="true">
+        <div class="bg-marquee-track">
+            <span>SEND YOUR WARM HEART WITH LETTERAPP · GENTLE & POP EXPERIENCES </span>
+            <span>SEND YOUR WARM HEART WITH LETTERAPP · GENTLE & POP EXPERIENCES </span>
+        </div>
+    </div>
+
+    <!-- Parallax Floating Emojis -->
+    <div class="floating-emojis" id="parallax-container" aria-hidden="true">
+        <div class="emoji-layer" data-speed="0.05"><span class="emoji"
+                style="top: 15%; left: 10%; font-size: 3rem; transform: rotate(15deg);">💌</span></div>
+        <div class="emoji-layer" data-speed="-0.08"><span class="emoji"
+                style="top: 60%; left: 5%; font-size: 4rem; transform: rotate(-20deg);">🌟</span></div>
+        <div class="emoji-layer" data-speed="0.1"><span class="emoji"
+                style="top: 25%; right: 15%; font-size: 5rem; transform: rotate(45deg);">🕊️</span></div>
+        <div class="emoji-layer" data-speed="-0.04"><span class="emoji"
+                style="top: 75%; right: 10%; font-size: 2.5rem; transform: rotate(-10deg);">✒️</span></div>
+        <div class="emoji-layer" data-speed="0.06"><span class="emoji"
+                style="top: 40%; left: 45%; font-size: 2rem; filter: blur(2px);">🎀</span></div>
+    </div>
+
+    <header class="header" id="header">
+        <div class="header-inner">
+            <a href="#" class="logo">LetterApp<span class="logo-dot">.</span></a>
+            <a href="#download" class="nav-cta btn btn-fun">GET APP NOW!</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero glass-panel">
+            <!-- Big Decorative Blobs -->
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+
+            <div class="hero-inner">
+                <div class="hero-text-block">
+                    <h1 class="hero-title">
+                        <span class="line drop-in" style="animation-delay: 0.2s;">想いを、</span><br>
+                        <span class="line drop-in outline-text colorful" style="animation-delay: 0.4s;">ふわりと</span>
+                        <span class="line drop-in" style="animation-delay: 0.6s;">届けよう。</span>
+                    </h1>
+                    <p class="hero-subtitle drop-in" style="animation-delay: 0.8s;">
+                        ただのメッセージにはない、特別な温もり。<br>封筒が開く瞬間のワクワクを、あの人へ。
+                    </p>
+                    <div class="hero-actions drop-in" style="animation-delay: 1.0s;">
+                        <a href="#download" class="btn btn-primary btn-huge btn-float-hover">手紙を書いてみる</a>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="mockup-wrapper float-wild">
+                        <div class="mockup-phone glass-phone">
+                            <!-- Actual LetterApp Recorded Demo -->
+                            <img src="assets/images/letterapp_demo.webp" alt="LetterApp UI Demo" loading="eager"
+                                style="object-position: top; object-fit: cover;">
+                        </div>
+                        <div class="mockup-envelope premium-glass-card premium-float">
+                            <div class="premium-card-inner">
+                                <div class="premium-icon-wrap">
+                                    <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor"
+                                        stroke-width="1.5" fill="none" class="premium-icon">
+                                        <path
+                                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div class="premium-card-lines">
+                                    <div class="line short"></div>
+                                    <div class="line long"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scroll-down">
+                <span class="scroll-text">SCROLL FOR FUN</span>
+                <div class="scroll-arrow">↓</div>
+            </div>
+        </section>
+
+        <!-- CONCEPT -->
+        <section id="concept" class="section concept tilted-section">
+            <div class="concept-inner">
+                <h2 class="massive-title" data-scroll-speed="2">FEEL THE<br><span
+                        class="accent-text gradient-text">WARMTH</span></h2>
+                <div class="concept-card tilt-card" data-tilt>
+                    <h3>便利すぎる時代に、<br>あえて「包む」楽しさを。</h3>
+                    <p>タップひとつで済む時代。でも、便箋の色を選んで、写真を貼って、お気に入りのシーリングスタンプを押す…その「ちょっとした手間」が、相手への優しいサプライズになります。</p>
+                    <div class="card-deco">✨</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES -->
+        <section id="features" class="section features">
+            <div class="features-header center scale-in-view">
+                <p class="badge">FEATURES</p>
+                <h2 class="section-title">LetterAppのちょっといいところ</h2>
+            </div>
+
+            <div class="feature-showcase">
+                <!-- F1 -->
+                <article class="f-card f-card-1 slide-in-left">
+                    <div class="f-image blob-mask-1 float-soft">
+                        <img src="https://images.unsplash.com/photo-1627843288118-d748adab01ed?q=80&w=800&auto=format&fit=crop"
+                            alt="3Dアニメーション">
+                    </div>
+                    <div class="f-content">
+                        <span class="f-num stroke-num">01</span>
+                        <h3 class="f-title">画面からふわりと飛び出す<br>リアル3D封筒</h3>
+                        <p>思わず見入ってしまうほど滑らかな3Dアニメーション。手紙が届いた瞬間のワクワク感が、スマホいっぱいに広がります。</p>
+                    </div>
+                </article>
+
+                <!-- F2 -->
+                <article class="f-card f-card-2 slide-in-right reverse">
+                    <div class="f-image blob-mask-2 float-soft" style="animation-delay: -2s;">
+                        <img src="https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?q=80&w=800&auto=format&fit=crop"
+                            alt="カスタマイズ">
+                    </div>
+                    <div class="f-content">
+                        <span class="f-num stroke-num text-magenta">02</span>
+                        <h3 class="f-title">自分らしさを表現できる<br>カスタマイズ</h3>
+                        <p>フォントも色も写真も自由自在。可愛いポップな雰囲気も、落ち着いたトーンも、あなたの好みに合わせて作れます。</p>
+                    </div>
+                </article>
+
+                <!-- F3 -->
+                <article class="f-card f-card-3 slide-in-left">
+                    <div class="f-image blob-mask-3 float-soft" style="animation-delay: -1s;">
+                        <img src="https://images.unsplash.com/photo-1601662528567-526cd06f6582?q=80&w=800&auto=format&fit=crop"
+                            alt="シーリングスタンプ">
+                    </div>
+                    <div class="f-content">
+                        <span class="f-num stroke-num text-green">03</span>
+                        <h3 class="f-title">気分で選べる<br>シーリングスタンプ</h3>
+                        <p>手紙の最後にはコレ。その日の気分に合わせたアイコンスタンプをドラッグして、優しく封をしましょう。</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- PROCESS -->
+        <section id="process" class="section process pattern-bg">
+            <div class="process-inner">
+                <h2 class="section-title center pop-in">たった3ステップで<br>心温まる体験を。</h2>
+
+                <div class="stepper">
+                    <div class="step-line"></div>
+
+                    <div class="step-box gentle-hover">
+                        <div class="step-icon-huge">✒️</div>
+                        <h3 class="step-name">1. 書く</h3>
+                        <p>大切な人への想いを綴りましょう。写真も自由に添えられます。</p>
+                    </div>
+
+                    <div class="step-box gentle-hover" style="margin-top: 80px;">
+                        <div class="step-icon-huge">💌</div>
+                        <h3 class="step-name">2. 封をする</h3>
+                        <p>お気に入りのスタンプを選んで、画面の中で優しく封をします。</p>
+                    </div>
+
+                    <div class="step-box gentle-hover" style="margin-top: 160px;">
+                        <div class="step-icon-huge">🕊️</div>
+                        <h3 class="step-name">3. 送る</h3>
+                        <p>スッと引っ張って相手へ。あとは開封されるのを楽しむだけです。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section id="download" class="section cta huge-padding">
+            <div class="cta-circle-bg expand-on-scroll"></div>
+            <div class="cta-content">
+                <h2 class="super-title pop-in">さあ、手紙を書こう。</h2>
+                <p class="cta-lead">新しい手紙体験を、あなたのスマホから。<br>iOS / Android対応でお届けします。</p>
+                <div class="store-buttons float-soft">
+                    <a href="#" class="store-btn glass-btn">
+                        <span class="icon">🍎</span> App Store
+                    </a>
+                    <a href="#" class="store-btn glass-btn">
+                        <span class="icon">🤖</span> Google Play
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-huge-logo">LETTERAPP</div>
+            <div class="footer-links">
+                <a href="#">Concept</a>
+                <a href="#">Features</a>
+                <a href="#">Process</a>
+                <a href="#">Privacy</a>
+            </div>
+            <p class="copyright">&copy; 2026 LetterApp Studio. All rights reserved. Keep it fun!</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

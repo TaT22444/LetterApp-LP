@@ -1457,3 +1457,30 @@ h4 {
         align-items: center;
     }
 }
+
+@media (max-width: 768px) {
+    .hero {
+        padding-bottom: 60px;
+    }
+
+    .scroll-down {
+        bottom: 40px;
+    }
+
+    .concept {
+        padding: 80px 5%;
+        margin-top: -40px;
+        clip-path: polygon(0 40px, 100% 0, 100% calc(100% - 40px), 0 100%);
+    }
+
+    .massive-title {
+        top: 20px;
+        left: -10px;
+        font-size: 5rem;
+    }
+
+    .use-cases {
+        margin-top: -40px;
+        padding-top: 80px;
+    }
+}

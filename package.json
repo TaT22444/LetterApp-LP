@@ -1,5 +1,5 @@
 {
-    "name": "letterapp-lp",
+    "name": "chocolate",
     "version": "1.0.0",
     "scripts": {
         "dev": "vite",
@@ -8,5 +8,8 @@
     },
     "devDependencies": {
         "vite": "^5.0.0"
+    },
+    "dependencies": {
+        "firebase": "^12.9.0"
     }
 }

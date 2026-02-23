@@ -40,22 +40,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ──────────────────────────────────────────
-    // Tilt Card Effect (Concept section)
+    // Tilt Card Effect (Concept section & Features)
     // ──────────────────────────────────────────
-    const tiltCard = document.querySelector('.tilt-card');
-    if (tiltCard) {
-        tiltCard.addEventListener('mousemove', (e) => {
-            const rect = tiltCard.getBoundingClientRect();
+    const tiltElements = document.querySelectorAll('.tilt-card, .f-visual');
+    tiltElements.forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+            const rect = el.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -15;
-            const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 15;
-            tiltCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+            const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -10;
+            const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 10;
+            
+            // Adjust perspective and scale based on element type if needed
+            const isFeature = el.classList.contains('f-visual');
+            const scale = 1.05;
+            const translateY = isFeature ? -15 : -10; // Lift effect
+            
+            el.style.transform = `perspective(1000px) translateY(${translateY}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(${scale}, ${scale}, ${scale})`;
         });
-        tiltCard.addEventListener('mouseleave', () => {
-            tiltCard.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        el.addEventListener('mouseleave', () => {
+            el.style.transform = `perspective(1000px) translateY(0px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
         });
-    }
+    });
 
     // ──────────────────────────────────────────
     // IntersectionObserver — Fade-up & Scroll Animations

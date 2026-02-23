@@ -317,7 +317,7 @@ h4 {
 }
 
 .logo-dot {
-    color: var(--color-accent-1);
+    color: var(--color-accent-4);
 }
 
 /* Buttons */
@@ -842,7 +842,7 @@ h4 {
 
 .uc-card:nth-child(3) {
     top: 380px;
-    left: 15%;
+    left: 25%;
     transform: rotate(-2deg);
 }
 
@@ -930,39 +930,7 @@ h4 {
     transform: rotate(25deg) scale(1.3);
 }
 
-@media (max-width: 768px) {
-    .uc-scatter {
-        min-height: auto;
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-    }
-
-    .uc-card {
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        right: auto !important;
-        width: 100%;
-        transform: none !important;
-    }
-
-    .uc-card:hover {
-        transform: translateY(-8px) scale(1.02) !important;
-    }
-
-    .uc-card-title {
-        font-size: 1.5rem;
-    }
-
-    .uc-card-num {
-        font-size: 6rem;
-    }
-
-    .uc-bg-text {
-        font-size: 6rem;
-    }
-}
+@media (max-width: 768px) {}
 
 
 
@@ -977,7 +945,7 @@ h4 {
 }
 
 .feature-showcase {
-    margin-top: 100px;
+    margin-top: 160px;
     display: flex;
     flex-direction: column;
     gap: 160px;
@@ -1000,21 +968,23 @@ h4 {
 /* 巨大な背景文字（はっちゃけ感とスケール感） */
 .f-bg-text {
     position: absolute;
-    top: -80px;
-    left: -50px;
-    font-size: 14rem;
+    top: -48px;
+    left: -16px;
+    font-size: 6rem;
     font-weight: 900;
     line-height: 1;
-    color: transparent;
-    -webkit-text-stroke: 3px rgba(0, 0, 0, 0.04);
-    z-index: -1;
+    /* color: var(--color-accent-1);
+    -webkit-text-stroke: 3px rgba(0, 0, 0, 0.1); */
+    z-index: 11;
+    rotate: -10deg;
     pointer-events: none;
     font-family: var(--font-sans);
 }
 
 .f-card.reverse .f-bg-text {
+    rotate: 10deg;
     left: auto;
-    right: -50px;
+    right: -16px;
 }
 
 .text-accent-5 {
@@ -1030,47 +1000,98 @@ h4 {
 
 .f-visual {
     flex: 1;
-    padding: 20px;
-    border-radius: 40px;
+    position: relative;
     /* Glass cardベースにホバー時の動きを付加 */
-    transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s ease;
+    transition: transform 0.6s var(--ease-spring), box-shadow 0.4s ease;
+    z-index: 1;
 }
 
 .f-visual:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+    transform: translateY(-15px) scale(1.03) rotate(1deg);
+    z-index: 10;
 }
 
-.f-image-wrap {
+.f-card.reverse .f-visual:hover {
+    transform: translateY(-15px) scale(1.03) rotate(-1deg);
+}
+
+.f-video-wrapper {
+    position: relative;
     width: 100%;
-    aspect-ratio: 1;
+    aspect-ratio: 4/5;
     overflow: hidden;
-    /* 素人っぽさを消すため、洗練された角丸形状に */
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+    /* デフォルトの角丸 */
     border-radius: 30px;
+    z-index: 2;
+}
+
+.f-video-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: 120%;
+    transform: translate(-50%, -50%);
+    filter: blur(60px);
+    opacity: 0.3;
+    z-index: -1;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.f-visual:hover .f-video-glow {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+.f-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.f-video-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.2) 0%,
+            rgba(255, 255, 255, 0) 50%,
+            rgba(0, 0, 0, 0.1) 100%);
+    pointer-events: none;
+    z-index: 3;
+}
+
+.f-deco-emoji {
+    position: absolute;
+    font-size: 5rem;
+    z-index: 5;
+    pointer-events: none;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
+    animation: floatSoft 4s ease-in-out infinite alternate;
 }
 
 /* 画像に少しだけ癖を持たせる */
 .blob-refined-1 {
-    border-radius: 40px 100px 40px 40px;
+    border-radius: 60px 140px 60px 80px;
 }
 
 .blob-refined-2 {
-    border-radius: 100px 40px 40px 40px;
+    border-radius: 120px 60px 80px 60px;
 }
 
 .blob-refined-3 {
-    border-radius: 50%;
+    border-radius: 80px 80px 140px 60px;
 }
 
-.f-image-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s var(--ease-out-expo);
-}
-
-.f-visual:hover .f-image-wrap img {
-    transform: scale(1.08);
+.f-visual:hover .f-video {
+    transform: scale(1.05);
 }
 
 .f-content {
@@ -1207,21 +1228,6 @@ h4 {
 
 /* Mobile Responsive */
 @media (max-width: 992px) {
-
-    .f-card,
-    .f-card.reverse {
-        flex-direction: column;
-        gap: 40px;
-        text-align: center;
-    }
-
-    .f-bg-text {
-        font-size: 8rem;
-        top: -40px;
-        left: 0;
-        right: 0;
-        text-align: center;
-    }
 
     .process-flow {
         flex-direction: column;
@@ -1484,10 +1490,8 @@ h4 {
         width: 100%;
     }
 
-    .f-card,
-    .f-card.reverse {
-        flex-direction: column;
-        gap: 40px;
+    .uc-card {
+        width: min(360px, 70vw);
     }
 
     .stepper {
@@ -1592,10 +1596,57 @@ h4 {
         font-size: 1.8rem;
     }
 
+    .uc-scatter {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding: 5%;
+    }
+
+    .uc-card {
+        width: min(280px, 50vw);
+    }
+
+    .uc-card-emoji {
+        font-size: 3rem;
+        margin-bottom: 16px;
+    }
+
+    .uc-card:nth-child(1) {
+        top: 0;
+        left: 5%;
+        transform: rotate(-5deg);
+    }
+
+    .uc-card:nth-child(2) {
+        top: 120px;
+        right: 8%;
+        left: auto;
+        transform: rotate(3deg);
+    }
+
+    .uc-card:nth-child(3) {
+        top: 320px;
+        left: 15%;
+        transform: rotate(-2deg);
+    }
+
+    .uc-card:hover {
+        transform: translateY(-8px) scale(1.02) !important;
+    }
+
+    .uc-card-num {
+        font-size: 6rem;
+    }
+
+    .uc-bg-text {
+        font-size: 6rem;
+    }
+
     .use-cases {
         margin-top: -6vw;
-        padding-top: 80px;
-        padding-bottom: 100px;
+        /* padding-top: 80px;
+        padding-bottom: 100px; */
     }
 
     .uc-header {
@@ -1603,7 +1654,11 @@ h4 {
     }
 
     .uc-card-inner {
-        padding: 30px 20px;
+        padding: 16px 12px;
+    }
+
+    .uc-card-body {
+        padding: 16px 12px;
     }
 
     .uc-card-title {
@@ -1638,7 +1693,10 @@ h4 {
     }
 
     .f-visual {
-        height: 300px;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        height: auto;
     }
 
     .f-title {

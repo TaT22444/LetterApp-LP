@@ -71,12 +71,25 @@
                         ただのメッセージにはない、特別な温もり。<br>手紙を開く瞬間のワクワクを。
                     </p>
                     <div class="hero-actions drop-in" style="animation-delay: 1.0s;">
-                        <form id="pre-reg-form" class="pre-reg-form">
-                            <input type="email" id="pre-reg-email" class="pre-reg-input" placeholder="メールアドレスを入力"
-                                required>
-                            <button type="submit" class="btn btn-primary btn-huge">事前登録する</button>
-                        </form>
-                        <p id="pre-reg-status" class="pre-reg-status"></p>
+                        <div id="pre-reg-form-wrap" class="pre-reg-form-wrap">
+                            <form id="pre-reg-form" class="pre-reg-form">
+                                <input type="email" id="pre-reg-email" class="pre-reg-input" placeholder="メールアドレスを入力"
+                                    required>
+                                <button type="submit" class="btn btn-primary btn-huge">事前登録する</button>
+                            </form>
+                            <p id="pre-reg-status" class="pre-reg-status"></p>
+                        </div>
+                        <div id="pre-reg-pending" class="pre-reg-badge-wrap" aria-hidden="true" hidden>
+                            <span class="pre-reg-badge pre-reg-badge--pending">確認メールを送りました</span>
+                            <p class="pre-reg-caption">メール内のリンクをクリックして、事前登録を完了してください。</p>
+                        </div>
+                        <div id="pre-reg-done" class="pre-reg-badge-wrap" aria-hidden="true" hidden>
+                            <span class="pre-reg-badge pre-reg-badge--done">
+                                <svg class="pre-reg-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+                                事前登録済み
+                            </span>
+                            <p class="pre-reg-caption">リリース時にご連絡します。お楽しみに！</p>
+                        </div>
                     </div>
                 </div>
 

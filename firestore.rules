@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Pre-registrations: only Cloud Functions (Admin SDK) may read/write.
+    // Clients use callable functions submitPreRegistration and verifyPreRegistration.
+    match /pre-registrations/{docId} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -42,6 +42,13 @@ button {
     cursor: none;
 }
 
+input,
+textarea,
+select {
+    cursor: text;
+    caret-color: var(--color-text-primary);
+}
+
 @media (hover: none) and (pointer: coarse) {
 
     body,
@@ -487,6 +494,10 @@ h4 {
 }
 
 /* Pre-registration Form */
+.pre-reg-form-wrap[hidden] {
+    display: none !important;
+}
+
 .pre-reg-form {
     display: flex;
     gap: 15px;
@@ -533,6 +544,64 @@ h4 {
 
 .pre-reg-status.error {
     color: #e74c3c;
+}
+
+/* Pre-registered / Pending state: compact badge + caption, left-aligned with hero text */
+.pre-reg-badge-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    max-width: 500px;
+}
+
+.pre-reg-badge-wrap[hidden] {
+    display: none !important;
+}
+
+.pre-reg-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 900;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+    border-radius: 50px;
+    width: fit-content;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.pre-reg-badge-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+}
+
+/* 事前登録済み: 成功色（事前登録ボタン＝accent-3 とは別の色） */
+.pre-reg-badge--done {
+    background-color: #0d9488;
+    color: #fff;
+    border: 2px solid #0f766e;
+    box-shadow: 3px 3px 0 #0f766e;
+}
+
+/* 確認メール送信済み */
+.pre-reg-badge--pending {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: var(--color-text-primary);
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.12);
+}
+
+.pre-reg-caption {
+    font-size: 0.9rem;
+    color: var(--color-text-sub);
+    margin: 0;
+    line-height: 1.5;
+    text-align: left;
 }
 
 @media (max-width: 768px) {

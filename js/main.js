@@ -1,6 +1,6 @@
 // main.js - Premium LP with Scatter Parallax & Fade-up Animations
-import { db } from './firebase-config.js';
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { functions } from './firebase-config.js';
+import { httpsCallable } from "firebase/functions";
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -164,11 +164,52 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ──────────────────────────────────────────
-    // Pre-registration Form Logic
+    // Pre-registration Form Logic (with confirmation email)
     // ──────────────────────────────────────────
+    const PRE_REG_STORAGE_KEY = 'chocoleta_preregistered';
+    const preRegFormWrap = document.getElementById('pre-reg-form-wrap');
     const preRegForm = document.getElementById('pre-reg-form');
     const preRegEmail = document.getElementById('pre-reg-email');
     const preRegStatus = document.getElementById('pre-reg-status');
+    const preRegDone = document.getElementById('pre-reg-done');
+    const preRegPending = document.getElementById('pre-reg-pending');
+
+    function showPreRegDone() {
+        if (preRegFormWrap) preRegFormWrap.hidden = true;
+        if (preRegPending) preRegPending.hidden = true;
+        if (preRegDone) {
+            preRegDone.hidden = false;
+            preRegDone.setAttribute('aria-hidden', 'false');
+        }
+    }
+
+    function showPreRegPending() {
+        if (preRegFormWrap) preRegFormWrap.hidden = true;
+        if (preRegDone) preRegDone.hidden = true;
+        if (preRegPending) {
+            preRegPending.hidden = false;
+            preRegPending.setAttribute('aria-hidden', 'false');
+        }
+    }
+
+    function showPreRegForm() {
+        if (preRegFormWrap) preRegFormWrap.hidden = false;
+        if (preRegDone) {
+            preRegDone.hidden = true;
+            preRegDone.setAttribute('aria-hidden', 'true');
+        }
+        if (preRegPending) {
+            preRegPending.hidden = true;
+            preRegPending.setAttribute('aria-hidden', 'true');
+        }
+    }
+
+    const stored = localStorage.getItem(PRE_REG_STORAGE_KEY);
+    if (stored === '1') {
+        showPreRegDone();
+    } else if (stored === 'pending') {
+        showPreRegPending();
+    }
 
     if (preRegForm) {
         preRegForm.addEventListener('submit', async (e) => {
@@ -177,23 +218,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!email) return;
 
-            // Reset status
             preRegStatus.textContent = "送信中...";
             preRegStatus.classList.remove('success', 'error');
             preRegStatus.classList.add('is-visible');
 
             try {
-                await addDoc(collection(db, "pre-registrations"), {
-                    email: email,
-                    timestamp: serverTimestamp()
-                });
+                const submitPreRegistration = httpsCallable(functions, 'submitPreRegistration');
+                await submitPreRegistration({ email });
 
-                preRegStatus.textContent = "登録ありがとうございます！リリースをお楽しみに✨";
-                preRegStatus.classList.add('success');
-                preRegForm.reset();
+                localStorage.setItem(PRE_REG_STORAGE_KEY, 'pending');
+                showPreRegPending();
             } catch (error) {
-                console.error("Error adding document: ", error);
-                preRegStatus.textContent = "エラーが発生しました。時間を置いて再度お試しください。";
+                console.error("Error submitting pre-registration: ", error);
+                const msg = error.message || "エラーが発生しました。時間を置いて再度お試しください。";
+                preRegStatus.textContent = msg;
                 preRegStatus.classList.add('error');
             }
         });

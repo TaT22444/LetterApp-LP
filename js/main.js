@@ -106,15 +106,25 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!processSection || !processFlow) return;
         processFlow.style.transform = 'translateX(0)';
 
-        const cards = processFlow.querySelectorAll('.step-card');
-        if (cards.length < 2) return;
+        const children = Array.from(processFlow.children);
+        if (children.length < 2) return;
 
-        const first = cards[0];
-        const last = cards[cards.length - 1];
-        const firstCenter = first.getBoundingClientRect().left + first.offsetWidth / 2;
-        const lastCenter = last.getBoundingClientRect().left + last.offsetWidth / 2;
+        const gap = parseFloat(getComputedStyle(processFlow).gap) || 0;
+        const firstCard = children[0];
+        const lastCard = children[children.length - 1];
 
-        flowTravel = lastCenter - firstCenter;
+        let distBetweenCenters = 0;
+        for (let i = 0; i < children.length; i++) {
+            if (i === 0) {
+                distBetweenCenters += children[i].offsetWidth / 2;
+            } else if (i === children.length - 1) {
+                distBetweenCenters += gap + children[i].offsetWidth / 2;
+            } else {
+                distBetweenCenters += gap + children[i].offsetWidth;
+            }
+        }
+
+        flowTravel = distBetweenCenters;
         processSection.style.height = `${window.innerHeight + flowTravel}px`;
     }
 

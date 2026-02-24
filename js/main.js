@@ -96,6 +96,32 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.querySelectorAll(animatedSelectors.join(', ')).forEach(el => observer.observe(el));
 
     // ──────────────────────────────────────────
+    // Process section — horizontal scroll on vertical scroll
+    // ──────────────────────────────────────────
+    const processSection = document.querySelector('.process');
+    const processFlow = document.querySelector('.process-flow');
+    let flowTravel = 0;
+
+    function measureProcessFlow() {
+        if (!processSection || !processFlow) return;
+        processFlow.style.transform = 'translateX(0)';
+
+        const cards = processFlow.querySelectorAll('.step-card');
+        if (cards.length < 2) return;
+
+        const first = cards[0];
+        const last = cards[cards.length - 1];
+        const firstCenter = first.getBoundingClientRect().left + first.offsetWidth / 2;
+        const lastCenter = last.getBoundingClientRect().left + last.offsetWidth / 2;
+
+        flowTravel = lastCenter - firstCenter;
+        processSection.style.height = `${window.innerHeight + flowTravel}px`;
+    }
+
+    measureProcessFlow();
+    window.addEventListener('resize', measureProcessFlow);
+
+    // ──────────────────────────────────────────
     // Scroll Parallax — Use Cases scatter cards & massive title
     // ──────────────────────────────────────────
     const scrollSpeedElements = document.querySelectorAll('[data-scroll-speed]');
@@ -112,7 +138,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const speed = parseFloat(el.getAttribute('data-scroll-speed'));
                     const rect = el.getBoundingClientRect();
                     const elementCenter = rect.top + rect.height / 2;
-                    // When element is centered in viewport, offset is 0
                     const offset = (elementCenter - viewportCenter) * speed * 0.1;
                     el.style.transform = `translateY(${offset}px)`;
                 });
@@ -131,6 +156,21 @@ document.addEventListener('DOMContentLoaded', async () => {
                         card.style.transform = `rotate(${rotate}deg)`;
                     }
                 });
+
+                // Process flow horizontal scroll driven by vertical scroll
+                if (processSection && processFlow && flowTravel > 0) {
+                    const rect = processSection.getBoundingClientRect();
+                    const stickyTravel = processSection.offsetHeight - window.innerHeight;
+
+                    if (rect.top <= 0 && rect.bottom >= window.innerHeight) {
+                        const progress = Math.min(1, Math.max(0, -rect.top / stickyTravel));
+                        processFlow.style.transform = `translateX(${-progress * flowTravel}px)`;
+                    } else if (rect.top > 0) {
+                        processFlow.style.transform = 'translateX(0)';
+                    } else {
+                        processFlow.style.transform = `translateX(${-flowTravel}px)`;
+                    }
+                }
 
                 // CTA Bg Expand
                 const ctaBg = document.querySelector('.cta-circle-bg');

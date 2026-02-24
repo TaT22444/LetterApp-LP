@@ -1,5 +1,5 @@
 // main.js - Premium LP with Scatter Parallax & Fade-up Animations
-import { auth, db } from './firebase-config.js';
+import { auth, db, functions, httpsCallable } from './firebase-config.js';
 import { sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, onAuthStateChanged } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 
@@ -404,15 +404,37 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             }
 
+            const normalizedEmail = email.trim().toLowerCase();
+
+            if (auth.currentUser && auth.currentUser.email && auth.currentUser.email.toLowerCase() === normalizedEmail) {
+                localStorage.setItem(PRE_REG_STORAGE_KEY, '1');
+                showPreRegDone();
+                if (submitBtn) submitBtn.disabled = false;
+                return;
+            }
+
+            try {
+                const checkPreRegistration = httpsCallable(functions, "checkPreRegistration");
+                const { data } = await checkPreRegistration({ email: normalizedEmail });
+                if (data && data.alreadyRegistered) {
+                    localStorage.setItem(PRE_REG_STORAGE_KEY, '1');
+                    showPreRegDone();
+                    if (submitBtn) submitBtn.disabled = false;
+                    return;
+                }
+            } catch (checkErr) {
+                console.warn("Pre-registration check failed, proceeding to send link:", checkErr);
+            }
+
             try {
                 const actionCodeSettings = {
                     url: window.location.origin + window.location.pathname,
                     handleCodeInApp: true,
                 };
 
-                await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+                await sendSignInLinkToEmail(auth, normalizedEmail, actionCodeSettings);
 
-                localStorage.setItem(PRE_REG_EMAIL_KEY, email);
+                localStorage.setItem(PRE_REG_EMAIL_KEY, normalizedEmail);
                 localStorage.setItem(PRE_REG_STORAGE_KEY, 'pending');
                 showPreRegPending();
             } catch (error) {

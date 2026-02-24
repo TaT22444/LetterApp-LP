@@ -120,14 +120,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // Use Cases scatter card parallax (Relative to viewport center)
                 parallaxCards.forEach(card => {
                     const speed = parseFloat(card.getAttribute('data-parallax-speed'));
+                    const rotate = card.getAttribute('data-rotate') || '0';
                     const rect = card.getBoundingClientRect();
                     const elementCenter = rect.top + rect.height / 2;
                     const offset = (elementCenter - viewportCenter) * speed;
 
                     if (window.innerWidth > 768) {
-                        card.style.transform = `translateY(${offset}px)`;
+                        card.style.transform = `translateY(${offset}px) rotate(${rotate}deg)`;
                     } else {
-                        card.style.transform = 'none';
+                        card.style.transform = `rotate(${rotate}deg)`;
                     }
                 });
 

@@ -1484,8 +1484,8 @@ h4 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.5);
-    width: 150vw;
-    height: 150vw;
+    width: 150vmax;
+    height: 150vmax;
     border-radius: 50%;
     background: linear-gradient(135deg, var(--color-accent-4), var(--color-accent-3), var(--color-accent-4));
     z-index: -1;

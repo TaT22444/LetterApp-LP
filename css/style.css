@@ -452,7 +452,7 @@ h4 {
 
 .hero-text-block {
     flex: 1.2;
-    padding-left: 2rem;
+    padding-left: 5%;
 }
 
 .hero-badge {
@@ -569,7 +569,7 @@ h4 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 16px;
     max-width: 500px;
 }
 
@@ -620,6 +620,11 @@ h4 {
     margin: 0;
     line-height: 1.5;
     text-align: left;
+}
+
+.pre-reg-caption-small {
+    font-size: 0.8rem;
+    font-weight: 300;
 }
 
 @media (max-width: 768px) {
@@ -1090,7 +1095,7 @@ h4 {
     margin-top: 160px;
     display: flex;
     flex-direction: column;
-    gap: 160px;
+    gap: 80px;
     /* 余白を大きく取って洗練さを出す */
 }
 
@@ -1505,6 +1510,63 @@ h4 {
     font-size: 2rem;
 }
 
+/* CTA Pre-registration */
+.cta-prereg {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cta-pre-reg-form-wrap{
+    width: 100%;
+}
+
+.cta-pre-reg-form-wrap[hidden] {
+    display: none !important;
+}
+
+.cta-pre-reg-form {
+    max-width: 580px;
+    justify-content: center;
+    margin-inline: auto;
+}
+
+.cta-pre-reg-consent {
+    color: rgba(0, 0, 0, 0.45);
+}
+
+.cta-pre-reg-consent a {
+    color: rgba(0, 0, 0, 0.45);
+}
+
+.cta-pre-reg-consent a:hover {
+    color: var(--color-text-primary);
+}
+
+.cta-pre-reg-badge-wrap {
+    align-items: center;
+}
+
+.cta-pre-reg-badge-wrap .pre-reg-caption {
+    text-align: center;
+}
+
+.cta-pre-reg-badge-wrap[hidden] {
+    display: none !important;
+}
+
+/* Header nav CTA registered state */
+.nav-cta--done {
+    background-color: #0d9488;
+    color: #fff;
+    pointer-events: none;
+}
+
+.nav-cta--done:hover {
+    transform: none;
+}
+
 /* Footer */
 .footer {
     background: #000;
@@ -1607,7 +1669,7 @@ h4 {
 }
 
 @media (max-width: 992px) {
-    .section-title{
+    .section-title {
         font-size: clamp(2.2rem, 6.5vw, 4.5rem);
         margin-bottom: 4rem;
     }
@@ -1640,7 +1702,7 @@ h4 {
         margin-bottom: 1.5rem;
     }
 
-    .colorful{
+    .colorful {
         margin-bottom: 4px;
     }
 
@@ -1661,7 +1723,7 @@ h4 {
 
     .pre-reg-badge-wrap {
         gap: 16px;
-        align-items: flex-start;
+        /* align-items: flex-start; */
     }
 
     .mockup-wrapper {
@@ -1729,12 +1791,12 @@ h4 {
         gap: 40px;
         margin-top: 120px;
     }
-    
+
     .f-card {
         gap: 40px;
     }
 
-    .f-bg-text{
+    .f-bg-text {
         font-size: 4.2rem;
         top: -32px;
     }
@@ -1749,12 +1811,12 @@ h4 {
 
 @media (max-width: 768px) {
 
-    .section-title{
+    .section-title {
         font-size: clamp(2.2rem, 6.5vw, 4.5rem);
     }
 
     .hero {
-        padding-top: 120px;
+        padding-top: 64px;
         padding-bottom: 0;
         align-items: flex-start;
         min-height: 100dvh;
@@ -1762,7 +1824,7 @@ h4 {
 
     .hero-inner {
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
         padding-top: 3%;
     }
@@ -1779,7 +1841,7 @@ h4 {
         margin-bottom: 1.5rem;
     }
 
-    .colorful{
+    .colorful {
         margin-bottom: 4px;
     }
 
@@ -1817,12 +1879,12 @@ h4 {
         rotate: 5deg;
     }
 
-    .pre-reg-badge-wrap{
+    .pre-reg-badge-wrap {
         align-items: center;
         justify-content: center;
     }
 
-    .pre-reg-caption{
+    .pre-reg-caption {
         text-align: center;
         white-space: normal;
     }
@@ -1950,12 +2012,12 @@ h4 {
         gap: 40px;
         margin-top: 80px;
     }
-    
+
     .f-card {
         gap: 24px;
     }
 
-    .f-bg-text{
+    .f-bg-text {
         font-size: 4.2rem;
         top: -32px;
     }

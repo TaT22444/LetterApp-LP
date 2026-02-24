@@ -169,6 +169,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // ──────────────────────────────────────────
     const PRE_REG_STORAGE_KEY = 'chocoleta_preregistered';
     const PRE_REG_EMAIL_KEY = 'chocoleta_prereg_email';
+
+    // Hero の要素
     const preRegFormWrap = document.getElementById('pre-reg-form-wrap');
     const preRegForm = document.getElementById('pre-reg-form');
     const preRegEmail = document.getElementById('pre-reg-email');
@@ -176,34 +178,62 @@ document.addEventListener('DOMContentLoaded', async () => {
     const preRegDone = document.getElementById('pre-reg-done');
     const preRegPending = document.getElementById('pre-reg-pending');
 
+    // CTA の要素
+    const ctaPreRegFormWrap = document.getElementById('cta-pre-reg-form-wrap');
+    const ctaPreRegForm = document.getElementById('cta-pre-reg-form');
+    const ctaPreRegEmail = document.getElementById('cta-pre-reg-email');
+    const ctaPreRegStatus = document.getElementById('cta-pre-reg-status');
+    const ctaPreRegDone = document.getElementById('cta-pre-reg-done');
+    const ctaPreRegPending = document.getElementById('cta-pre-reg-pending');
+
+    // Header のボタン
+    const navCtaBtn = document.getElementById('nav-cta-btn');
+
+    function updateNavCta(isDone) {
+        if (!navCtaBtn) return;
+        if (isDone) {
+            navCtaBtn.textContent = 'Thanks!';
+            navCtaBtn.classList.add('nav-cta--done');
+            navCtaBtn.removeAttribute('href');
+        } else {
+            navCtaBtn.textContent = 'Pre-register';
+            navCtaBtn.classList.remove('nav-cta--done');
+            navCtaBtn.setAttribute('href', '#download');
+        }
+    }
+
+    function setHidden(el, hidden) {
+        if (!el) return;
+        el.hidden = hidden;
+        el.setAttribute('aria-hidden', hidden ? 'true' : 'false');
+    }
+
     function showPreRegDone() {
         if (preRegFormWrap) preRegFormWrap.hidden = true;
-        if (preRegPending) preRegPending.hidden = true;
-        if (preRegDone) {
-            preRegDone.hidden = false;
-            preRegDone.setAttribute('aria-hidden', 'false');
-        }
+        setHidden(preRegPending, true);
+        setHidden(preRegDone, false);
+        if (ctaPreRegFormWrap) ctaPreRegFormWrap.hidden = true;
+        setHidden(ctaPreRegPending, true);
+        setHidden(ctaPreRegDone, false);
+        updateNavCta(true);
     }
 
     function showPreRegPending() {
         if (preRegFormWrap) preRegFormWrap.hidden = true;
-        if (preRegDone) preRegDone.hidden = true;
-        if (preRegPending) {
-            preRegPending.hidden = false;
-            preRegPending.setAttribute('aria-hidden', 'false');
-        }
+        setHidden(preRegDone, true);
+        setHidden(preRegPending, false);
+        if (ctaPreRegFormWrap) ctaPreRegFormWrap.hidden = true;
+        setHidden(ctaPreRegDone, true);
+        setHidden(ctaPreRegPending, false);
     }
 
     function showPreRegForm() {
         if (preRegFormWrap) preRegFormWrap.hidden = false;
-        if (preRegDone) {
-            preRegDone.hidden = true;
-            preRegDone.setAttribute('aria-hidden', 'true');
-        }
-        if (preRegPending) {
-            preRegPending.hidden = true;
-            preRegPending.setAttribute('aria-hidden', 'true');
-        }
+        setHidden(preRegDone, true);
+        setHidden(preRegPending, true);
+        if (ctaPreRegFormWrap) ctaPreRegFormWrap.hidden = false;
+        setHidden(ctaPreRegDone, true);
+        setHidden(ctaPreRegPending, true);
     }
 
     // --- Firebase Auth の認証状態を監視（タブ間同期・リロード対応） ---
@@ -357,92 +387,109 @@ document.addEventListener('DOMContentLoaded', async () => {
         showPreRegPending();
     }
 
-    // --- フォーム送信: 確認メールを送る or リンク検証を完了する ---
-    if (preRegForm) {
-        const submitBtn = preRegForm.querySelector('button[type="submit"]');
+    // --- フォーム送信ロジック（Hero / CTA 共通） ---
+    async function handlePreRegSubmit(emailInput, statusEl, submitBtn) {
+        const email = emailInput.value.trim();
+        if (!email) return;
 
-        preRegForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = preRegEmail.value.trim();
-            if (!email) return;
+        if (submitBtn) submitBtn.disabled = true;
+        if (statusEl) {
+            statusEl.textContent = "送信中...";
+            statusEl.classList.remove('success', 'error');
+            statusEl.classList.add('is-visible');
+        }
 
-            if (submitBtn) submitBtn.disabled = true;
-            preRegStatus.textContent = "送信中...";
-            preRegStatus.classList.remove('success', 'error');
-            preRegStatus.classList.add('is-visible');
-
-            // リンクから来て email がなかった場合 → ここで認証完了
-            if (localStorage.getItem('chocoleta_awaiting_link_verify') === '1'
-                && isSignInWithEmailLink(auth, window.location.href)) {
+        // リンクから来て email がなかった場合 → ここで認証完了
+        if (localStorage.getItem('chocoleta_awaiting_link_verify') === '1'
+            && isSignInWithEmailLink(auth, window.location.href)) {
+            try {
+                const result = await signInWithEmailLink(auth, email, window.location.href);
+                const trimmed = email.trim().toLowerCase();
                 try {
-                    const result = await signInWithEmailLink(auth, email, window.location.href);
-                    const trimmed = email.trim().toLowerCase();
-                    try {
-                        await setDoc(doc(db, "pre-registrations", result.user.uid), {
-                            email: trimmed,
-                            verified: true,
-                            createdAt: serverTimestamp(),
-                            verifiedAt: serverTimestamp(),
-                            uid: result.user.uid,
-                        });
-                    } catch (err) {
-                        console.warn("Firestore write failed (non-critical):", err);
-                    }
-                    localStorage.setItem(PRE_REG_STORAGE_KEY, '1');
-                    localStorage.removeItem(PRE_REG_EMAIL_KEY);
-                    localStorage.removeItem('chocoleta_awaiting_link_verify');
-                    window.history.replaceState(null, '', window.location.pathname);
-                    showPreRegDone();
-                    showCelebration();
-                    return;
+                    await setDoc(doc(db, "pre-registrations", result.user.uid), {
+                        email: trimmed,
+                        verified: true,
+                        createdAt: serverTimestamp(),
+                        verifiedAt: serverTimestamp(),
+                        uid: result.user.uid,
+                    });
                 } catch (err) {
-                    console.error("Email link verification failed:", err);
-                    preRegStatus.textContent = "認証に失敗しました。メールアドレスが正しいか確認してください。";
-                    preRegStatus.classList.add('error');
-                    if (submitBtn) submitBtn.disabled = false;
-                    return;
+                    console.warn("Firestore write failed (non-critical):", err);
                 }
+                localStorage.setItem(PRE_REG_STORAGE_KEY, '1');
+                localStorage.removeItem(PRE_REG_EMAIL_KEY);
+                localStorage.removeItem('chocoleta_awaiting_link_verify');
+                window.history.replaceState(null, '', window.location.pathname);
+                showPreRegDone();
+                showCelebration();
+                return;
+            } catch (err) {
+                console.error("Email link verification failed:", err);
+                if (statusEl) {
+                    statusEl.textContent = "認証に失敗しました。メールアドレスが正しいか確認してください。";
+                    statusEl.classList.add('error');
+                }
+                if (submitBtn) submitBtn.disabled = false;
+                return;
             }
+        }
 
-            const normalizedEmail = email.trim().toLowerCase();
+        const normalizedEmail = email.trim().toLowerCase();
 
-            if (auth.currentUser && auth.currentUser.email && auth.currentUser.email.toLowerCase() === normalizedEmail) {
+        if (auth.currentUser && auth.currentUser.email && auth.currentUser.email.toLowerCase() === normalizedEmail) {
+            localStorage.setItem(PRE_REG_STORAGE_KEY, '1');
+            showPreRegDone();
+            if (submitBtn) submitBtn.disabled = false;
+            return;
+        }
+
+        try {
+            const checkPreRegistration = httpsCallable(functions, "checkPreRegistration");
+            const { data } = await checkPreRegistration({ email: normalizedEmail });
+            if (data && data.alreadyRegistered) {
                 localStorage.setItem(PRE_REG_STORAGE_KEY, '1');
                 showPreRegDone();
                 if (submitBtn) submitBtn.disabled = false;
                 return;
             }
+        } catch (checkErr) {
+            console.warn("Pre-registration check failed, proceeding to send link:", checkErr);
+        }
 
-            try {
-                const checkPreRegistration = httpsCallable(functions, "checkPreRegistration");
-                const { data } = await checkPreRegistration({ email: normalizedEmail });
-                if (data && data.alreadyRegistered) {
-                    localStorage.setItem(PRE_REG_STORAGE_KEY, '1');
-                    showPreRegDone();
-                    if (submitBtn) submitBtn.disabled = false;
-                    return;
-                }
-            } catch (checkErr) {
-                console.warn("Pre-registration check failed, proceeding to send link:", checkErr);
+        try {
+            const actionCodeSettings = {
+                url: window.location.origin + window.location.pathname,
+                handleCodeInApp: true,
+            };
+
+            await sendSignInLinkToEmail(auth, normalizedEmail, actionCodeSettings);
+
+            localStorage.setItem(PRE_REG_EMAIL_KEY, normalizedEmail);
+            localStorage.setItem(PRE_REG_STORAGE_KEY, 'pending');
+            showPreRegPending();
+        } catch (error) {
+            console.error("Error submitting pre-registration:", error);
+            if (statusEl) {
+                statusEl.textContent = "エラーが発生しました。時間を置いて再度お試しください。";
+                statusEl.classList.add('error');
             }
+            if (submitBtn) submitBtn.disabled = false;
+        }
+    }
 
-            try {
-                const actionCodeSettings = {
-                    url: window.location.origin + window.location.pathname,
-                    handleCodeInApp: true,
-                };
+    // Hero フォーム
+    if (preRegForm) {
+        preRegForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            handlePreRegSubmit(preRegEmail, preRegStatus, preRegForm.querySelector('button[type="submit"]'));
+        });
+    }
 
-                await sendSignInLinkToEmail(auth, normalizedEmail, actionCodeSettings);
-
-                localStorage.setItem(PRE_REG_EMAIL_KEY, normalizedEmail);
-                localStorage.setItem(PRE_REG_STORAGE_KEY, 'pending');
-                showPreRegPending();
-            } catch (error) {
-                console.error("Error submitting pre-registration:", error);
-                preRegStatus.textContent = "エラーが発生しました。時間を置いて再度お試しください。";
-                preRegStatus.classList.add('error');
-                if (submitBtn) submitBtn.disabled = false;
-            }
+    // CTA フォーム
+    if (ctaPreRegForm) {
+        ctaPreRegForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            handlePreRegSubmit(ctaPreRegEmail, ctaPreRegStatus, ctaPreRegForm.querySelector('button[type="submit"]'));
         });
     }
 });

@@ -50,7 +50,8 @@
     <header class="header" id="header">
         <div class="header-inner">
             <a href="#" class="logo">Chocoleta<span class="logo-dot">!?</span></a>
-            <a href="#download" class="nav-cta btn btn-fun">GET APP NOW!</a>
+            <!-- <a href="#download" class="nav-cta btn btn-fun">GET APP NOW!</a> -->
+            <a href="#download" class="nav-cta btn btn-fun" id="nav-cta-btn">Pre-register</a>
         </div>
     </header>
 
@@ -82,7 +83,7 @@
                         </div>
                         <div id="pre-reg-pending" class="pre-reg-badge-wrap" aria-hidden="true" hidden>
                             <span class="pre-reg-badge pre-reg-badge--pending">確認メールを送りました</span>
-                            <p class="pre-reg-caption">メール内のリンクをクリックして、事前登録を完了してください。</p>
+                            <p class="pre-reg-caption">メール内のリンクをクリックして、事前登録を完了してください。<br><span class="pre-reg-caption-small">迷惑メールに入る可能性があります。ご確認ください。</span></p>
                         </div>
                         <div id="pre-reg-done" class="pre-reg-badge-wrap" aria-hidden="true" hidden>
                             <span class="pre-reg-badge pre-reg-badge--done">
@@ -342,6 +343,7 @@
             <div class="cta-content">
                 <h2 class="super-title fade-up">今日誕生日だよね？<br>あとでちょこるね！</h2>
                 <p class="cta-lead fade-up delay-1">新しい手紙体験を、あなたのスマホから。<br>iOS / Android対応でお届けします。</p>
+                <!--
                 <div class="store-buttons fade-up delay-2">
                     <a href="#" class="store-btn glass-btn">
                         <span class="icon">🍎</span> App Store
@@ -349,6 +351,28 @@
                     <a href="#" class="store-btn glass-btn">
                         <span class="icon">🤖</span> Google Play
                     </a>
+                </div>
+                -->
+                <div class="cta-prereg fade-up delay-2">
+                    <div id="cta-pre-reg-form-wrap" class="cta-pre-reg-form-wrap">
+                        <form id="cta-pre-reg-form" class="pre-reg-form cta-pre-reg-form">
+                            <input type="email" id="cta-pre-reg-email" class="pre-reg-input" placeholder="メールアドレスを入力" required>
+                            <button type="submit" class="btn btn-primary btn-huge">事前登録する</button>
+                        </form>
+                        <p class="pre-reg-consent cta-pre-reg-consent">登録により<a href="/privacy.html" target="_blank">プライバシーポリシー</a>・<a href="/terms.html" target="_blank">利用規約</a>に同意したものとみなします。</p>
+                        <p id="cta-pre-reg-status" class="pre-reg-status"></p>
+                    </div>
+                    <div id="cta-pre-reg-pending" class="pre-reg-badge-wrap cta-pre-reg-badge-wrap" aria-hidden="true" hidden>
+                        <span class="pre-reg-badge pre-reg-badge--pending">確認メールを送りました</span>
+                        <p class="pre-reg-caption">メール内のリンクをクリックして、事前登録を完了してください。<br><span class="pre-reg-caption-small">迷惑メールに入る可能性があります。ご確認ください。</span></p>
+                    </div>
+                    <div id="cta-pre-reg-done" class="pre-reg-badge-wrap cta-pre-reg-badge-wrap" aria-hidden="true" hidden>
+                        <span class="pre-reg-badge pre-reg-badge--done">
+                            <svg class="pre-reg-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+                            事前登録済み
+                        </span>
+                        <p class="pre-reg-caption">リリース時にご連絡します。お楽しみに！</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -364,7 +388,7 @@
                 <a href="/privacy.html">Privacy</a>
                 <a href="/terms.html">Terms</a>
             </div>
-            <p class="copyright">&copy; 2026 Chocoleta!? Studio. All rights reserved. Keep it fun!</p>
+            <p class="copyright">&copy; 2026 Chocoleta!?. All rights reserved. Keep it fun!</p>
         </div>
     </footer>
 
@@ -373,7 +397,7 @@
         <div class="celebration-content">
             <div class="celebration-emoji">🎉</div>
             <h2 class="celebration-title">ようこそ！</h2>
-            <p class="celebration-message">事前登録ありがとうございます！<br>リリースを楽しみにしていてください。</p>
+            <p class="celebration-message">事前登録ありがとうございます！<br>リリースまで、もうしばらくお待ちください🙇‍♂️</p>
         </div>
     </div>
 

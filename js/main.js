@@ -305,17 +305,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         let email = localStorage.getItem(PRE_REG_EMAIL_KEY);
         if (!email) {
-            // 別ブラウザ/デバイスで開いた場合はフォーム表示に戻す
             showPreRegForm();
             if (preRegEmail) {
-                preRegEmail.placeholder = "確認用にメールアドレスを再入力";
-                preRegEmail.focus();
+                preRegEmail.placeholder = "登録したメールアドレスを入力";
+                requestAnimationFrame(() => preRegEmail.focus());
             }
             if (preRegStatus) {
-                preRegStatus.textContent = "メール内のリンクから開きました。登録したメールアドレスを入力して完了してください。";
+                preRegStatus.textContent = "事前登録を完了するために、先ほど入力したメールアドレスをもう一度入力してください。";
                 preRegStatus.classList.add('is-visible');
             }
-            // フォーム送信時に再度この関数を呼ぶためフラグを立てる
             localStorage.setItem('chocoleta_awaiting_link_verify', '1');
             return false;
         }
@@ -425,18 +423,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         draw();
     }
 
-    const verified = await handleEmailLinkVerification();
-
     // 初期表示: localStorage で即座に UI を出す（onAuthStateChanged が後から上書き可能）
     const stored = localStorage.getItem(PRE_REG_STORAGE_KEY);
-    if (verified) {
-        showPreRegDone();
-        showCelebration();
-    } else if (stored === '1') {
+    if (stored === '1') {
         showPreRegDone();
     } else if (stored === 'pending') {
         showPreRegPending();
     }
+
+    // メール認証リンクの処理はページ描画をブロックしないよう非同期で実行
+    handleEmailLinkVerification().then(verified => {
+        if (verified) {
+            showPreRegDone();
+            showCelebration();
+        }
+    });
 
     // --- フォーム送信ロジック（Hero / CTA 共通） ---
     async function handlePreRegSubmit(emailInput, statusEl, submitBtn) {
